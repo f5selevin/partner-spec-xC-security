@@ -17,8 +17,8 @@ context; no SCP or browser download is required.
    :language: console
    :parameters: [{"name":"tenant","title":"XC tenant name","default":"labs-msp-c-secure","readonly":true},{"name":"apiToken","title":"XC API token","type":"text","required":true},{"name":"vk8s","title":"Virtual K8s name","default":"arcadia-finance-vk8s","required":true},{"name":"expiry","title":"Kubeconfig expiry (days)","default":"1","readonly":true}]
 
-   set -euo pipefail
    XC_API_TOKEN='$$apiToken$$'
+   export HOME="${HOME:-$(getent passwd "$(id -u)" | cut -d: -f6)}"
    umask 077
    mkdir -p "$HOME/.kube"
    response_file="$(mktemp)"
@@ -26,14 +26,17 @@ context; no SCP or browser download is required.
 
    curl --fail-with-body --silent --show-error \
      --request POST \
-     "https://$$tenant$$.console.ves.volterra.io/api/web/namespaces/system/kube_configs" \
+     "https://$$tenant$$.console.ves.volterra.io/api/web/namespaces/system/api_credentials" \
      --header "Authorization: APIToken ${XC_API_TOKEN}" \
      --header "Content-Type: application/json" \
      --data '{
        "namespace": "system",
        "name": "arcadia-vk8s-'"$(date +%s)"'",
-       "vk8s_namespace": "$$namespace$$",
-       "vk8s_cluster_name": "$$vk8s$$",
+       "spec": {
+         "type": "KUBE_CONFIG",
+         "virtual_k8s_namespace": "$$namespace$$",
+         "virtual_k8s_name": "$$vk8s$$"
+       },
        "expiration_days": $$expiry$$
      }' > "$response_file"
 
@@ -56,12 +59,14 @@ context; no SCP or browser download is required.
 
    The credential API path and request field use ``system`` because XC stores
    personal credential records in its system namespace. The
-   ``vk8s_namespace`` field selects the assigned ``$$namespace$$`` application
-   namespace where the vK8s object was created. Subsequent kubectl requests run
-   against that assigned namespace.
+   ``virtual_k8s_namespace`` field selects the assigned ``$$namespace$$``
+   application namespace where the vK8s object was created. Subsequent kubectl
+   requests run against that assigned namespace.
 
 .. note::
 
    The jump host requires outbound HTTPS access to your XC tenant and the
-   ``curl``, ``jq``, ``base64``, and ``kubectl`` commands. A ``403`` response
+   ``curl``, ``jq``, ``base64``, ``getent``, and ``kubectl`` commands. If the
+   shell does not define ``HOME``, the generated commands obtain the current
+   user's home directory from the system account database. A ``403`` response
    means the token's user does not have permission to generate the kubeconfig.

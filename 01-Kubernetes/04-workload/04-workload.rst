@@ -26,10 +26,18 @@ Continue in the same jump-host terminal used in the previous section. The
 ``KUBECONFIG`` environment variable, vK8s connection, and ``$$namespace$$``
 current-context namespace are already configured and verified.
 
-1. Create a file named ``finance.yaml`` with all four Deployments and
+1. Create and open a file named ``finance.yaml``:
+
+   .. code-block:: console
+
+      touch finance.yaml
+      nano finance.yaml
+
+   Paste the following manifest, which defines all four Deployments and
    ClusterIP Services:
 
    .. code-block:: yaml
+
       apiVersion: apps/v1
       kind: Deployment
       metadata:
@@ -169,6 +177,9 @@ current-context namespace are already configured and verified.
             protocol: TCP
             port: 80
             targetPort: 8080
+
+   After pasting the manifest, press ``Ctrl+X``, then ``Y``, and then ``Enter``
+   to save the changes and exit nano.
 
 2. Validate and deploy the manifest:
 
