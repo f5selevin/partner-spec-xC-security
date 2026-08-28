@@ -3,25 +3,10 @@ Create the Virtual Kubernetes environment
 
 1. In the F5 XC Console, switch to your assigned namespace.
 2. Go to **Distributed Apps** > **Applications** > **Virtual K8s** and select **Add Virtual K8s**.
-3. Enter ``arcadia-openbanking-vk8s`` as the name, retain the workshop's default site configuration, and select **Save and Exit**.
+3. Enter ``arcadia-finance-vk8s`` as the name, retain the workshop's default site configuration, and select **Save and Exit**.
 4. Open the new vK8s object and confirm that its status is ready.
-5. From the vK8s object, download the kubeconfig file and save it as
-   ``arcadia-openbanking-vk8s.conf``. This file provides the credentials and
-   context that ``kubectl`` uses to access this vK8s environment.
-6. Configure and test the CLI connection:
-
-   .. code-block:: console
-      export KUBECONFIG="$HOME/Downloads/arcadia-openbanking-vk8s.conf"
-      kubectl cluster-info
-      kubectl get namespaces
-
-   Keep this terminal open, or export ``KUBECONFIG`` again in each new shell
-   before running the commands in the next section.
-
-.. warning::
-
-   The downloaded kubeconfig contains credentials. Store it securely and do
-   not commit it to source control.
+5. Continue to the next section to create an XC API token. You will use that
+   token from the jump host to generate the vK8s kubeconfig.
 
 .. note::
 

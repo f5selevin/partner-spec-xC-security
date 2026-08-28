@@ -1,7 +1,7 @@
 Review the approved Arcadia Finance Open Banking API surface
 ############################################################
 
-1. Open the ``arcadia-openbanking-api`` API definition.
+1. Open the ``arcadia-finance-api`` API definition.
 2. Review the imported operations and confirm that parameterized resources are represented, including ``/accounts/{accountId}``, ``/payments/{paymentId}``, and their transaction, statement, refund, balance, and history subresources.
 3. Review the allowed HTTP methods for each path. Pay particular attention to operations that create payments or refunds and operations that expose account or user information.
 4. Review path, query, header, and body parameters defined by the schema, including required fields and data types.

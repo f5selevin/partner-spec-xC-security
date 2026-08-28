@@ -4,7 +4,7 @@ Compare automated and browser traffic
 1. Send repeated scripted POST requests to the protected payment endpoint. Use only the lab application:
 
    .. code-block:: console
-      BASE="https://$$namespace$$.spec-security.f5se.com"
+      BASE="http://$$namespace$$.spec-security.f5se.com"
       for i in $(seq 1 20); do
         curl -sS -o /dev/null -X POST \
           -H 'Content-Type: application/json' \
@@ -12,7 +12,7 @@ Compare automated and browser traffic
           "$BASE/payments"
       done
 
-2. Open the Swagger UI at :ext_link:`https://$$namespace$$.spec-security.f5se.com/swagger/` in a JavaScript-capable browser and use **Try it out** to submit a payment request. Do not use real banking data.
+2. Open the Swagger UI at :ext_link:`http://$$namespace$$.spec-security.f5se.com/swagger/` in a JavaScript-capable browser and use **Try it out** to submit a payment request. Do not use real banking data.
 3. In **Web App & API Protection** > **Overview** > **Security**, select the load balancer and filter for method ``POST`` and path prefix ``/payments``.
 4. Open **Bot Defense** details and compare automation classification, client type, telemetry availability, and mitigation action for the scripted and browser-generated requests. Direct tools such as ``curl`` cannot execute the Bot Defense JavaScript telemetry challenge.
 5. After confirming expected classification, edit the protected endpoint and change mitigation from **Flag** to the instructor-approved blocking action. Save and rerun the scripted test.

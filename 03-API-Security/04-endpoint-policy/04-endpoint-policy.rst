@@ -6,12 +6,12 @@ This exercise adapts the explicit endpoint-denial test from the source API Prote
 1. Before adding the rule, establish the baseline:
 
    .. code-block:: console
-      BASE="https://$$namespace$$.spec-security.f5se.com"
+      BASE="http://$$namespace$$.spec-security.f5se.com"
       curl -i "$BASE/user/profile"
 
    Confirm that the documented endpoint reaches the application.
 
-2. Manage the ``arcadia-openbanking`` HTTP load balancer and edit its configuration.
+2. Manage the ``arcadia-finance`` HTTP load balancer and edit its configuration.
 3. Under **API Protection** > **API Protection Rules**, configure **API Endpoints** and add:
 
    .. table:: Required endpoint policy settings

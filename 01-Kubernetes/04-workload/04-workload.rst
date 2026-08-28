@@ -22,36 +22,27 @@ API service. Swagger UI displays the complete OpenAPI definition and sends API
 requests to the same published domain. Because the GHCR packages are public,
 no image pull secret is needed.
 
-1. Confirm that ``kubectl`` is using the downloaded kubeconfig and the expected
-   context:
+Continue in the same jump-host terminal used in the previous section. The
+``KUBECONFIG`` environment variable, vK8s connection, and ``$$namespace$$``
+current-context namespace are already configured and verified.
 
-   .. code-block:: console
-      export KUBECONFIG="$HOME/Downloads/arcadia-openbanking-vk8s.conf"
-      kubectl config current-context
-      kubectl get namespaces
-
-2. Set the namespace assigned to you in F5 XC as the current context's default:
-
-   .. code-block:: console
-      kubectl config set-context --current --namespace="<namespace>"
-
-3. Create a file named ``openbanking.yaml`` with all four Deployments and
+1. Create a file named ``finance.yaml`` with all four Deployments and
    ClusterIP Services:
 
    .. code-block:: yaml
       apiVersion: apps/v1
       kind: Deployment
       metadata:
-        name: openbanking-banks
+        name: finance-banks
       spec:
         replicas: 1
         selector:
           matchLabels:
-            app: openbanking-banks
+            app: finance-banks
         template:
           metadata:
             labels:
-              app: openbanking-banks
+              app: finance-banks
           spec:
             containers:
               - name: banks
@@ -64,10 +55,10 @@ no image pull secret is needed.
       apiVersion: v1
       kind: Service
       metadata:
-        name: openbanking-banks
+        name: finance-banks
       spec:
         selector:
-          app: openbanking-banks
+          app: finance-banks
         ports:
           - name: http
             protocol: TCP
@@ -77,16 +68,16 @@ no image pull secret is needed.
       apiVersion: apps/v1
       kind: Deployment
       metadata:
-        name: openbanking-accounts
+        name: finance-accounts
       spec:
         replicas: 1
         selector:
           matchLabels:
-            app: openbanking-accounts
+            app: finance-accounts
         template:
           metadata:
             labels:
-              app: openbanking-accounts
+              app: finance-accounts
           spec:
             containers:
               - name: accounts
@@ -99,10 +90,10 @@ no image pull secret is needed.
       apiVersion: v1
       kind: Service
       metadata:
-        name: openbanking-accounts
+        name: finance-accounts
       spec:
         selector:
-          app: openbanking-accounts
+          app: finance-accounts
         ports:
           - name: http
             protocol: TCP
@@ -112,16 +103,16 @@ no image pull secret is needed.
       apiVersion: apps/v1
       kind: Deployment
       metadata:
-        name: openbanking-payments
+        name: finance-payments
       spec:
         replicas: 1
         selector:
           matchLabels:
-            app: openbanking-payments
+            app: finance-payments
         template:
           metadata:
             labels:
-              app: openbanking-payments
+              app: finance-payments
           spec:
             containers:
               - name: payments
@@ -134,10 +125,10 @@ no image pull secret is needed.
       apiVersion: v1
       kind: Service
       metadata:
-        name: openbanking-payments
+        name: finance-payments
       spec:
         selector:
-          app: openbanking-payments
+          app: finance-payments
         ports:
           - name: http
             protocol: TCP
@@ -147,16 +138,16 @@ no image pull secret is needed.
       apiVersion: apps/v1
       kind: Deployment
       metadata:
-        name: openbanking-swagger
+        name: finance-swagger
       spec:
         replicas: 1
         selector:
           matchLabels:
-            app: openbanking-swagger
+            app: finance-swagger
         template:
           metadata:
             labels:
-              app: openbanking-swagger
+              app: finance-swagger
           spec:
             containers:
               - name: swagger-ui
@@ -169,42 +160,46 @@ no image pull secret is needed.
       apiVersion: v1
       kind: Service
       metadata:
-        name: openbanking-swagger
+        name: finance-swagger
       spec:
         selector:
-          app: openbanking-swagger
+          app: finance-swagger
         ports:
           - name: http
             protocol: TCP
             port: 80
             targetPort: 8080
 
-4. Validate and deploy the manifest:
+2. Validate and deploy the manifest:
 
    .. code-block:: console
-      kubectl apply --dry-run=server -f openbanking.yaml
-      kubectl apply -f openbanking.yaml
+      kubectl apply --dry-run=server -f finance.yaml
+      kubectl apply -f finance.yaml
 
-5. Wait for all four Deployments and verify the eight resources:
+3. Wait for all four Deployments and verify the eight resources:
 
    .. code-block:: console
-      kubectl rollout status deployment/openbanking-banks --timeout=5m
-      kubectl rollout status deployment/openbanking-accounts --timeout=5m
-      kubectl rollout status deployment/openbanking-payments --timeout=5m
-      kubectl rollout status deployment/openbanking-swagger --timeout=5m
+      kubectl wait --for=condition=Available deployment --all --timeout=5m
       kubectl get deployments,pods,services
 
    The expected result is one ready pod and one ClusterIP Service for Banks,
    Accounts, Payments, and Swagger UI.
 
-6. If a pod does not become ready, inspect the affected service. For example:
+4. If a pod does not become ready, inspect the affected service. For example:
 
    .. code-block:: console
-      kubectl describe pods -l app=openbanking-banks
-      kubectl logs deployment/openbanking-banks
+      kubectl describe pods -l app=finance-banks
+      kubectl logs deployment/finance-banks
 
    An ``ImagePullBackOff`` status usually means that the image name is invalid
    or the GHCR package is not publicly visible.
+
+.. note::
+
+   If you opened a new terminal after completing the previous section, run
+   ``export KUBECONFIG="$HOME/.kube/config"`` once before applying the manifest.
+   The namespace is stored in the kubeconfig context and does not need to be set
+   again.
 
 .. note::
 

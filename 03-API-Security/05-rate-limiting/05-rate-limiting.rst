@@ -9,7 +9,7 @@ Baseline test
 1. Send more than ten requests within one minute:
 
    .. code-block:: console
-      BASE="https://$$namespace$$.spec-security.f5se.com"
+      BASE="http://$$namespace$$.spec-security.f5se.com"
       for i in $(seq 1 12); do
         code=$(curl -sS -o /dev/null -w '%{http_code}' "$BASE/accounts")
         printf 'request=%02d status=%s\n' "$i" "$code"
@@ -20,7 +20,7 @@ Baseline test
 Configure the control
 ~~~~~~~~~~~~~~~~~~~~~
 
-1. Manage the ``arcadia-openbanking`` HTTP load balancer and edit its configuration.
+1. Manage the ``arcadia-finance`` HTTP load balancer and edit its configuration.
 2. Under **Common Security Controls** > **Rate Limiting**, select **API Rate Limit** and view its configuration.
 3. Under **API Endpoints**, add this rule:
 

@@ -3,7 +3,7 @@ Create a Bot Defense policy
 
 Automated payment submission is a realistic abuse case for the Arcadia Finance Open Banking API. Begin in flag mode so you can inspect classification without disrupting the exercise.
 
-1. Manage the ``arcadia-openbanking`` HTTP load balancer and edit its configuration.
+1. Manage the ``arcadia-finance`` HTTP load balancer and edit its configuration.
 2. Under **Bot Protection**, select **Enable Bot Defense Standard** and configure **Protected App Endpoints**.
 3. Add this endpoint:
 
@@ -13,7 +13,7 @@ Automated payment submission is a realistic abuse case for the Arcadia Finance O
       ============================  ==========================
       Setting                       Value
       ============================  ==========================
-      Name                          ``openbanking-payments``
+      Name                          ``finance-payments``
       HTTP methods                  POST
       Protocol                      Both
       Path match                    Prefix

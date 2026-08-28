@@ -4,15 +4,15 @@ Enforce the Arcadia Finance Open Banking API OpenAPI schema
 1. Before enabling API Protection, establish that the origin currently handles both documented and undocumented paths:
 
    .. code-block:: console
-      BASE="https://$$namespace$$.spec-security.f5se.com"
+      BASE="http://$$namespace$$.spec-security.f5se.com"
       curl -i "$BASE/banks"
       curl -i "$BASE/internal/shadow-report"
 
    Record both baseline status codes. Depending on the mock server, the undocumented path may return an application ``404``; after protection is enabled, it must be rejected at F5 XC rather than passed to the origin.
 
-2. Manage the ``arcadia-openbanking`` HTTP load balancer and edit its configuration.
+2. Manage the ``arcadia-finance`` HTTP load balancer and edit its configuration.
 3. Confirm that **API Discovery** remains disabled.
-4. Enable **API Definition/Protection** and select the previously imported ``arcadia-openbanking-api`` definition.
+4. Enable **API Definition/Protection** and select the previously imported ``arcadia-finance-api`` definition.
 5. Configure schema validation and use a deny or block action for requests that do not match the definition. If the console provides a fall-through rule, set it to deny unknown API endpoints.
 6. Apply and save the load balancer configuration.
 7. Confirm a documented endpoint remains available:

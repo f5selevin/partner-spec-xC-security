@@ -7,7 +7,7 @@ Requests dashboard
 ~~~~~~~~~~~~~~~~~~
 
 1. Go to **Web App & API Protection** > **Overview** > **Security**.
-2. In **Delivery Resources**, select the ``arcadia-openbanking`` HTTP load balancer and open **Requests**.
+2. In **Delivery Resources**, select the ``arcadia-finance`` HTTP load balancer and open **Requests**.
 3. Set the time range to include all tests, apply it, and refresh the view.
 4. Filter and compare the following paths:
 
