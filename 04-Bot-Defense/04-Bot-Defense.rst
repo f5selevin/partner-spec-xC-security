@@ -1,5 +1,5 @@
-Mitigate Automated OpenBanking Traffic
-######################################
+Mitigate Automated Arcadia Finance Open Banking API Traffic
+###########################################################
 
 Configure Bot Defense for a transaction endpoint, compare browser and scripted requests, and use security analytics to understand the classifications and mitigation results.
 

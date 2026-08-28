@@ -1,5 +1,5 @@
-Import the OpenBanking API definition
-#####################################
+Import the Arcadia Finance Open Banking API definition
+######################################################
 
 1. Locate ``arcadia-finance/openbanking/api/openbanking.json`` in the supplied lab files.
 2. In **Web App & API Protection**, open **API Management** > **API Definition** and select **Add API Definition**.

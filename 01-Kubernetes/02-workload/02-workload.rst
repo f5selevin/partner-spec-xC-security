@@ -1,11 +1,11 @@
-Deploy the OpenBanking services and Swagger UI from the CLI
-############################################################
+Deploy the Arcadia Finance Open Banking API services and Swagger UI from the CLI
+#################################################################################
 
 The application consists of three independently built API services and a
 Swagger UI service. Each public image is hosted on GitHub Container Registry
 (GHCR) and listens on container port ``8080``:
 
-.. table:: Required OpenBanking services
+.. table:: Required Arcadia Finance Open Banking API services
    :widths: auto
 
    ================  =====================  =====================================================================

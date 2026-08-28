@@ -1,5 +1,5 @@
-Publish and verify OpenBanking and Swagger UI
-##############################################
+Publish and verify the Arcadia Finance Open Banking API and Swagger UI
+######################################################################
 
 Create a separate origin pool for each Kubernetes Service, then use HTTP routes
 to expose the three APIs and Swagger UI through one domain.

@@ -1,5 +1,5 @@
-§Enforce the OpenBanking OpenAPI schema
-######################################
+Enforce the Arcadia Finance Open Banking API OpenAPI schema
+###########################################################
 
 1. Before enabling API Protection, establish that the origin currently handles both documented and undocumented paths:
 

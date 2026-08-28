@@ -1,7 +1,7 @@
 Create a Bot Defense policy
 ###########################
 
-Automated payment submission is a realistic abuse case for OpenBanking. Begin in flag mode so you can inspect classification without disrupting the exercise.
+Automated payment submission is a realistic abuse case for the Arcadia Finance Open Banking API. Begin in flag mode so you can inspect classification without disrupting the exercise.
 
 1. Manage the ``arcadia-openbanking`` HTTP load balancer and edit its configuration.
 2. Under **Bot Protection**, select **Enable Bot Defense Standard** and configure **Protected App Endpoints**.
