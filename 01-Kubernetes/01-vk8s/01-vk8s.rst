@@ -1,16 +1,17 @@
 Create the Virtual Kubernetes environment
 #########################################
 
-1. In the F5 XC Console, switch to your assigned namespace.
-2. Go to **Distributed Apps** > **Applications** > **Virtual K8s** and select **Add Virtual K8s**.
-3. Enter ``arcadia-finance-vk8s`` as the name, add
-   ``arcadia-finance-vsite`` under **Virtual Sites**, and select
-   **Add Virtual K8s**.
-4. Open the new vK8s object and confirm that its status is ready.
-5. Continue to the next section to create an XC API token. You will use that
-   token from the jump host to generate the vK8s kubeconfig.
+1. In the F5 XC Console, open **Applications** and select **Virtual K8s (1)**. Select **Add Virtual K8s (2)**.
 
-.. note::
+.. image:: ../../img/da-app-vks-add.png
+   :align: center
+ 
+2. Enter ``arcadia-finance-vks-$$namespace$$`` as the **Name (1)**. Under **Virtual Sites**, select ``$$namespace$$/arcadia-finance-vsite`` and then select **Add Item (2)**. Leave **Choose Service Isolation** set to **Disabled** and **Default Workload Flavor** unselected. Select **Add Virtual K8s (4)** to create the cluster.
 
-   Console labels can vary by release. In newer tenants, use the equivalent **Distributed Apps** and **Virtual Kubernetes** menus.
-s
+.. image:: ../../img/da-app-vks-add-details-1.png
+   :align: center
+
+3. Wait while the Virtual K8s cluster is created. Verify that ``arcadia-finance-vks-$$namespace$$`` appears in the list and that its **Cluster Status** changes to **Ready**.
+
+.. image:: ../../img/da-app-vks-result.png
+   :align: center 
