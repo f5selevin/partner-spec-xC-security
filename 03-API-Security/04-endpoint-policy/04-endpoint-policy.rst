@@ -6,7 +6,7 @@ This exercise adapts the explicit endpoint-denial test from the source API Prote
 1. Before adding the rule, establish the baseline:
 
    .. code-block:: console
-      BASE="http://$$namespace$$.spec-security.f5se.com"
+      BASE="https://$$namespace$$.spec-security.f5se.com"
       curl -i "$BASE/user/profile"
 
    Confirm that the documented endpoint reaches the application.

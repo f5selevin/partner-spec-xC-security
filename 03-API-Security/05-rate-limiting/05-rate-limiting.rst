@@ -9,7 +9,7 @@ Baseline test
 1. Send more than ten requests within one minute:
 
    .. code-block:: console
-      BASE="http://$$namespace$$.spec-security.f5se.com"
+      BASE="https://$$namespace$$.spec-security.f5se.com"
       for i in $(seq 1 12); do
         code=$(curl -sS -o /dev/null -w '%{http_code}' "$BASE/accounts")
         printf 'request=%02d status=%s\n' "$i" "$code"

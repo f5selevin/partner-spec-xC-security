@@ -4,14 +4,14 @@ Test WAF and inspect the event
 1. Confirm a normal request still succeeds:
 
    .. code-block:: console
-      curl -i "http://$$namespace$$.spec-security.f5se.com/banks"
+      curl -i "https://$$namespace$$.spec-security.f5se.com/banks"
 
 2. Send a test SQL-injection string in an account lookup query:
 
    .. code-block:: console
       curl -i --get \
         --data-urlencode "search=' OR 1=1--" \
-        "http://$$namespace$$.spec-security.f5se.com/accounts"
+        "https://$$namespace$$.spec-security.f5se.com/accounts"
 
 3. Confirm that F5 XC returns a blocking response, normally HTTP ``403``. Do not send attack tests to systems outside this lab.
 4. In **Web App & API Protection** > **Overview** > **Security**, select the ``arcadia-finance`` load balancer and adjust the time range if necessary.

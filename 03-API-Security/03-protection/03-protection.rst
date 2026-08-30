@@ -4,7 +4,7 @@ Enforce the Arcadia Finance Open Banking API OpenAPI schema
 1. Before enabling API Protection, establish that the origin currently handles both documented and undocumented paths:
 
    .. code-block:: console
-      BASE="http://$$namespace$$.spec-security.f5se.com"
+      BASE="https://$$namespace$$.spec-security.f5se.com"
       curl -i "$BASE/banks"
       curl -i "$BASE/internal/shadow-report"
 
