@@ -3,7 +3,9 @@ Create the Virtual Kubernetes environment
 
 1. In the F5 XC Console, switch to your assigned namespace.
 2. Go to **Distributed Apps** > **Applications** > **Virtual K8s** and select **Add Virtual K8s**.
-3. Enter ``arcadia-finance-vk8s`` as the name, retain the workshop's default site configuration, and select **Add Virtual K8s**.
+3. Enter ``arcadia-finance-vk8s`` as the name, add
+   ``arcadia-finance-vsite`` under **Virtual Sites**, and select
+   **Add Virtual K8s**.
 4. Open the new vK8s object and confirm that its status is ready.
 5. Continue to the next section to create an XC API token. You will use that
    token from the jump host to generate the vK8s kubeconfig.
@@ -11,3 +13,4 @@ Create the Virtual Kubernetes environment
 .. note::
 
    Console labels can vary by release. In newer tenants, use the equivalent **Distributed Apps** and **Virtual Kubernetes** menus.
+s
