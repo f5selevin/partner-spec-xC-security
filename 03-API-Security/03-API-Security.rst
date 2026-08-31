@@ -1,7 +1,42 @@
 Protect the Arcadia Finance Open Banking API
 ############################################
 
-Import and review the supplied Arcadia Finance OpenAPI document, attach it to the Arcadia Finance Open Banking API load balancer, and enforce the documented API surface. The exercises include the applicable tests from ``f5-agility-labs-xc/docs/class4``: pre/post unknown-endpoint access, method and request-schema validation, explicit sensitive-endpoint denial, API rate limiting, and analytics review. All tests are adapted to the Arcadia Finance Open Banking API. API Discovery, connector, repository-integration, and GitHub-integration exercises are deliberately omitted.
+Web application and API protection
+**********************************
+
+Web application protection detects attacks in HTTP traffic, including SQL
+injection and cross-site scripting. It does not define the valid paths, methods,
+parameters, or payloads of an API.
+
+API protection validates requests against an API contract. A request can be
+valid HTTP and contain no attack signature but still violate that contract by
+using an undocumented path, an unsupported method, or an invalid request body.
+
+F5 Distributed Cloud (XC) Web App and API Protection (WAAP) provides both
+controls on the HTTP load balancer. Web Application Firewall policies detect
+application attacks. API Security uses an OpenAPI definition to enforce the
+published API surface.
+
+OpenAPI enforcement
+*******************
+
+F5 Distributed Cloud uses the OpenAPI definition as a positive security model:
+
+* Reject requests to undocumented paths or unsupported HTTP methods.
+* Validate request parameters and bodies against the defined schema.
+* Deny selected operations with endpoint policy.
+* Limit request rates by API endpoint.
+* Record allowed, blocked, and rate-limited requests in security analytics.
+
+Lab scope
+*********
+
+In this lab, you will import the Arcadia Finance OpenAPI definition, associate
+it with the Arcadia Finance HTTP load balancer, and test enforcement. You will
+then add an endpoint policy and API rate limiting and review the resulting
+security events.
+
+**Exercise steps**
 
 
 .. toctree::
