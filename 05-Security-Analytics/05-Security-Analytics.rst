@@ -1,10 +1,9 @@
-Review Security Analytics and Malicious User Detection
-#######################################################
+Review Requests and Investigate Security Events
+###############################################
 
-Review the Arcadia Finance Open Banking API requests and security events generated in the preceding exercises. Use F5 Distributed Cloud Security Analytics to compare allowed and denied traffic, investigate enforcement decisions, and identify clients whose repeated behavior may be considered malicious.
+Review the Arcadia Finance traffic generated during the WAF, API Security, and Bot Defense exercises. Use the Requests dashboard to inspect request details, then use Security Analytics to examine security-event detections and identify the policy rule that detected and blocked a request.
 
-**Expected lab time: 8 minutes**
-
+**Exercise steps**
 .. toctree::
    :maxdepth: 1
    :glob:
