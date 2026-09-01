@@ -107,10 +107,10 @@ The Arcadia Finance Opem Banking API consists of three microservices. The additi
    ================  =====================  =====================================================================
    Service           Paths                  Public image
    ================  =====================  =====================================================================
-   Banks             ``/banks``             ``docker.io/interestingstorage/partner-spec-security:banks-latest``
-   Accounts          ``/accounts``          ``docker.io/interestingstorage/partner-spec-security:accounts-latest``
-   Payments          ``/payments``          ``docker.io/interestingstorage/partner-spec-security:payments-latest``
-   Swagger UI        ``/swagger/``          ``docker.io/interestingstorage/partner-spec-security:swagger-latest``
+   Banks             ``/banks``             ``ghcr.io/f5selevin/arcadia-finance-open-banking/banks:latest``
+   Accounts          ``/accounts``          ``ghcr.io/f5selevin/arcadia-finance-open-banking/accounts:latest``
+   Payments          ``/payments``          ``ghcr.io/f5selevin/arcadia-finance-open-banking/payments:latest``
+   Swagger UI        ``/swagger/``          ``ghcr.io/f5selevin/arcadia-finance-open-banking/swagger:latest``
    ================  =====================  =====================================================================
 
 Continue in the same jump-host terminal used in the previous section. The
@@ -143,7 +143,7 @@ current-context namespace are already configured and verified.
           spec:
             containers:
               - name: banks
-                image: docker.io/interestingstorage/partner-spec-security:banks-latest
+                image: ghcr.io/f5selevin/arcadia-finance-open-banking/banks:latest
                 imagePullPolicy: Always
                 ports:
                   - name: http
@@ -178,7 +178,7 @@ current-context namespace are already configured and verified.
           spec:
             containers:
               - name: accounts
-                image: docker.io/interestingstorage/partner-spec-security:accounts-latest
+                image: ghcr.io/f5selevin/arcadia-finance-open-banking/accounts:latest
                 imagePullPolicy: Always
                 ports:
                   - name: http
@@ -213,7 +213,7 @@ current-context namespace are already configured and verified.
           spec:
             containers:
               - name: payments
-                image: docker.io/interestingstorage/partner-spec-security:payments-latest
+                image: ghcr.io/f5selevin/arcadia-finance-open-banking/payments:latest
                 imagePullPolicy: Always
                 ports:
                   - name: http
@@ -248,7 +248,7 @@ current-context namespace are already configured and verified.
           spec:
             containers:
               - name: swagger-ui
-                image: docker.io/interestingstorage/partner-spec-security:swagger-latest
+                image: ghcr.io/f5selevin/arcadia-finance-open-banking/swagger:latest
                 imagePullPolicy: Always
                 ports:
                   - name: http
