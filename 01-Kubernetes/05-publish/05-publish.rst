@@ -23,7 +23,7 @@ to expose the three APIs and Swagger UI through one domain.
   
   * Select **K8s Service Name of Origin Server on Given Sites (1)**. 
   * Enter the Kubernetes service name ``finance-banks.$$namespace$$`` in the **Service Name (2)** field. 
-  * Set Protocol to **TCP(3)**. Select the **Virtual Site (4)** and then select your virtual site ``$$namespace/arcadia-finance-vsite`` **(5)**. 
+  * Set Protocol to **TCP(3)**. Select the **Virtual Site (4)** and then select your virtual site ``$$namespace$$/arcadia-finance-vsite`` **(5)**. 
   * Change network to **Outside network (6)**. Finally press **Apply (7)** to add the origin server to the pool.
    .. image:: ../../img/web-app-lb-op-details-2.png
       :align: center
