@@ -1,21 +1,41 @@
 Compare automated and browser traffic
 #####################################
 
-1. Send repeated scripted POST requests to the protected payment endpoint. Use only the lab application:
-
+1. Send repeated scripted POST requests to the same protected API endpoint.
+  
    .. code-block:: console
       BASE="https://$$namespace$$.spec-security.f5se.com"
+      API="$BASE/api/payments"
       for i in $(seq 1 20); do
-        curl -sS -o /dev/null -X POST \
+        code=$(curl -sS -o /dev/null -w '%{http_code}' -X POST \
           -H 'Content-Type: application/json' \
-          -d '{"amount":100,"currency":"EUR","reference":"lab-test"}' \
-          "$BASE/payments"
+          -d '{"amount":100.50,"currency":"EUR","recipient":{"name":"Lab Recipient","accountNumber":"12345678","bankCode":"LABBANK1"}}' \
+          "$API")
+        printf 'request=%02d status=%s\n' "$i" "$code"
       done
 
-2. Open the Swagger UI at :ext_link:`https://$$namespace$$.spec-security.f5se.com/swagger/` in a JavaScript-capable browser and use **Try it out** to submit a payment request. Do not use real banking data.
-3. In **Web App & API Protection** > **Overview** > **Security**, select the load balancer and filter for method ``POST`` and path prefix ``/payments``.
-4. Open **Bot Defense** details and compare automation classification, client type, telemetry availability, and mitigation action for the scripted and browser-generated requests. Direct tools such as ``curl`` cannot execute the Bot Defense JavaScript telemetry challenge.
-5. After confirming expected classification, edit the protected endpoint and change mitigation from **Flag** to the instructor-approved blocking action. Save and rerun the scripted test.
-6. Confirm the automated request is mitigated, then inspect the event details and request ID in security analytics.
+Note, how the response is different.
 
-A classification is risk-engine output, not proof of malicious intent. Tune endpoint scope and mitigation based on observed legitimate clients before applying this pattern to production payment APIs.
+2. Now lets see how the legitimate Web App will call the api. Open the Swagger UI at :ext_link:`https://$$namespace$$.spec-security.f5se.com/swagger/`. Expand **payments POST (1)** endpoint 
+   and click on **Try it out** button.
+
+.. image:: ../../img/swagger-1.png
+   ::align: center
+
+3. Paste the same test request body as the scripted request **(1)** and click **Execute (2)** button.
+
+   .. code-block:: json
+      {
+        "amount": 100.50,
+        "currency": "EUR",
+        "recipient": {
+          "name": "Lab Recipient",
+          "accountNumber": "12345678",
+          "bankCode": "LABBANK1"
+        }
+      }
+
+   You should observe that the response status is `201 Created`, indicating that the Web App successfully called the API, whereas the automated scripts were blocked.
+
+   .. image:: ../../img/swagger-2.png
+      ::align: center

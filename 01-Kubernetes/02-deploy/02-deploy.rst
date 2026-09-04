@@ -99,7 +99,7 @@ Generate the vK8s kubeconfig on the jump host
 Deploy the API services and Swagger UI from the CLI
 ===================================================
 
-The Arcadia Finance Opem Banking API consists of three microservices. The additional Swagger UI is deployed to ease testing and exploration of the API. The following table lists the services, their paths, and the public image names.
+The Arcadia Finance Open Banking API consists of three microservices. The additional Swagger UI is deployed to ease testing and exploration of the API. The following table lists the services, their externally published paths, and the public image names. The API services retain their original paths internally; the HTTP load balancer publishes them under ``/api`` and rewrites that prefix before forwarding requests.
 
 .. table:: Required Arcadia Finance Open Banking API services
    :widths: auto
@@ -107,9 +107,9 @@ The Arcadia Finance Opem Banking API consists of three microservices. The additi
    ================  =====================  =====================================================================
    Service           Paths                  Public image
    ================  =====================  =====================================================================
-   Banks             ``/banks``             ``ghcr.io/f5selevin/arcadia-finance-open-banking/banks:latest``
-   Accounts          ``/accounts``          ``ghcr.io/f5selevin/arcadia-finance-open-banking/accounts:latest``
-   Payments          ``/payments``          ``ghcr.io/f5selevin/arcadia-finance-open-banking/payments:latest``
+   Banks             ``/api/banks``         ``ghcr.io/f5selevin/arcadia-finance-open-banking/banks:latest``
+   Accounts          ``/api/accounts``      ``ghcr.io/f5selevin/arcadia-finance-open-banking/accounts:latest``
+   Payments          ``/api/payments``      ``ghcr.io/f5selevin/arcadia-finance-open-banking/payments:latest``
    Swagger UI        ``/swagger/``          ``ghcr.io/f5selevin/arcadia-finance-open-banking/swagger:latest``
    ================  =====================  =====================================================================
 

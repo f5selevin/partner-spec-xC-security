@@ -2,7 +2,7 @@ Deny a sensitive API endpoint
 #############################
 
 During a pre-release review of the Account API, the team discovers that the
-``/accounts/{accountId}/balance`` route is exposed. Because this route returns sensitive
+``/api/accounts/{accountId}/balance`` route is exposed. Because this route returns sensitive
 banking data, it must remain unavailable until the required approval is granted.
 
 Create a deny API endpoint rule
@@ -12,7 +12,7 @@ Create a deny API endpoint rule
 
    .. code-block:: console
       BASE="https://$$namespace$$.spec-security.f5se.com"
-      curl -i "$BASE/accounts/1001/balance"
+      curl -i "$BASE/api/accounts/1001/balance"
 
 2. Open the configuration editor for the ``arcadia-finance`` HTTP load balancer.
 
@@ -27,11 +27,8 @@ Create a deny API endpoint rule
       :align: center
 
 5. Enter a **Name (1)** and select **Deny (2)** for **Action**. Enter
-   ``/accounts/{accountId}/balance`` for **API Endpoint (3)**, select **ANY (4)**
+   ``/api/accounts/{accountId}/balance`` for **API Endpoint (3)**, select **ANY (4)**
    for **Method List**, and then click **Apply (5)** to save the rule.
-
-   .. image:: ../../img/api-protection-rules-details-3.png
-      :align: center
 
    .. table:: Required endpoint policy settings
       :widths: auto
@@ -41,9 +38,12 @@ Create a deny API endpoint rule
       ==================  =========================
       Name (1)            ``deny-account-balance``
       Action (2)           Deny
-      API Endpoint (3)    ``/accounts/{accountId}/balance``
+      API Endpoint (3)    ``/api/accounts/{accountId}/balance``
       Method List (4)      ANY
       ==================  =========================
+
+   .. image:: ../../img/api-protection-rules-details-3.png
+      :align: center
 
 6. Click **Apply (1)** to save the API endpoint configuration.
 
@@ -60,10 +60,10 @@ Test the deny API endpoint rule
 1. Repeat the baseline request several times to generate events:
 
    .. code-block:: console
-      curl -i "$BASE/accounts/1001/balance"
+      curl -i "$BASE/api/accounts/1001/balance"
 
 2. Confirm that the request is denied, typically with an HTTP ``403`` response, while
    another documented endpoint remains accessible:
 
    .. code-block:: console
-      curl -i "$BASE/banks"
+      curl -i "$BASE/api/banks"

@@ -1,7 +1,7 @@
 Import the Arcadia Finance Open Banking API definition
 ######################################################
 
-1. Download the Open Banking API definition from the lab files.
+1. Download the Open Banking API definition from the lab files. Its OpenAPI server URL is ``/api``, so F5 XC and Swagger UI associate the paths in the definition with the externally published API prefix.
 
 .. react:: Download
    :path: ../../resources/openbanking.json

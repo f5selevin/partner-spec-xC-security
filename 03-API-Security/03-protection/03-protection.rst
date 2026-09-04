@@ -8,11 +8,11 @@ Configure tha API Protection
 
    .. code-block:: console
       BASE="https://$$namespace$$.spec-security.f5se.com"
-      curl -i "$BASE/banks"
+      curl -i "$BASE/api/banks"
       echo 
-      curl -i "$BASE/banks/unknown-test/extra"
+      curl -i "$BASE/api/banks/unknown-test/extra"
       echo 
-      curl -i -X DELETE "$BASE/banks"
+      curl -i -X DELETE "$BASE/api/banks"
 
    Record both baseline status codes and response bodies. The undocumented path will return an error ``400``; after protection is enabled, F5 XC must reject it before it reaches the origin. The protected response can also use status ``404``, so use the F5 XC block page and support ID—not the status code alone—to distinguish it from the origin response.
 
@@ -34,8 +34,9 @@ Configure tha API Protection
    :align: center
 
 5. In the appeared dialog click **Add Item** and then fill in the form. Specify ``arcadia-finance-api-fallback`` for 
-   the **Name (1)**. Select **Block** for **Action (2)**, **Base Path (3)** for **Type**. Specify ``/`` 
-   as a **Base Path (4)**. Click **Apply (5)** to save the rule.
+   the **Name (1)**. Select **Block** for **Action (2)**, **Base Path (3)** for **Type**. Specify ``/api/``
+   as the **Base Path (4)**. This scopes fallback enforcement to the published API and leaves paths such as
+   ``/swagger`` and the Bot Defense JavaScript download path outside API validation. Click **Apply (5)** to save the rule.
 
 .. image:: ../../img/api-protection-details-3.png   
    :align: center
@@ -59,28 +60,28 @@ Test the API Protection
 1. Confirm a documented endpoint remains available:
 
    .. code-block:: console
-      curl -i "$BASE/banks"
+      curl -i "$BASE/api/banks"
 
 2. Confirm an unknown endpoint is rejected by F5 XC:
 
    .. code-block:: console
-      curl -i "$BASE/banks/unknown-test/extra"
+      curl -i "$BASE/api/banks/unknown-test/extra"
 
 3. Send a method not defined for a known endpoint and verify enforcement:
 
    .. code-block:: console
-      curl -i -X DELETE "$BASE/banks"
+      curl -i -X DELETE "$BASE/api/banks"
 
 4.  Send a valid payment body and confirm it passes API validation:
 
    .. code-block:: console
-      curl -i -X POST "$BASE/payments" \
+      curl -i -X POST "$BASE/api/payments" \
         -H 'Content-Type: application/json' \
         -d '{"amount":100.50,"currency":"EUR","recipient":{"name":"Lab Recipient","accountNumber":"12345678","bankCode":"LABBANK1"}}'
 
 5. Send a body with schema type violations and confirm it is rejected:
 
    .. code-block:: console
-      curl -i -X POST "$BASE/payments" \
+      curl -i -X POST "$BASE/api/payments" \
         -H 'Content-Type: application/json' \
         -d '{"amount":"not-a-number","currency":123,"recipient":false}'

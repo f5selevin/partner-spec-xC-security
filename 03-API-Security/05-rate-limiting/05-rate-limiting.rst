@@ -11,7 +11,7 @@ Baseline test
    .. code-block:: console
       BASE="https://$$namespace$$.spec-security.f5se.com"
       for i in $(seq 1 30); do
-        code=$(curl -sS -o /dev/null -w '%{http_code}' "$BASE/payments")
+        code=$(curl -sS -o /dev/null -w '%{http_code}' "$BASE/api/payments")
         printf 'request=%02d status=%s\n' "$i" "$code"
       done
 
@@ -40,7 +40,7 @@ Configure the control
       ==================  =====================
       Setting             Value
       ==================  =====================
-      API endpoint (1)    ``/payments``
+      API endpoint (1)    ``/api/payments``
       Method list (2)     GET
       Threshold (3)       ``10``
       Duration (4)        Minute
@@ -72,7 +72,7 @@ Run the test again:
    .. code-block:: console
       BASE="https://$$namespace$$.spec-security.f5se.com"
       for i in $(seq 1 30); do
-        code=$(curl -sS -o /dev/null -w '%{http_code}' "$BASE/payments")
+        code=$(curl -sS -o /dev/null -w '%{http_code}' "$BASE/api/payments")
         printf 'request=%02d status=%s\n' "$i" "$code"
       done
 

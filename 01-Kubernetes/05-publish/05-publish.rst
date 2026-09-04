@@ -4,7 +4,7 @@ Publish and verify the Arcadia Finance Open Banking API and Swagger UI
 Origin Pools
 =========================
 Create a separate origin pool for each Kubernetes Service, then use HTTP routes
-to expose the three APIs and Swagger UI through one domain.
+to expose the three APIs under ``/api`` and Swagger UI under ``/swagger`` through one domain.
 
 1. Click **Select Workspace (1)** and select **Web App & API Protection (2)**.
 .. image:: ../../img/workspace-web-app.png
@@ -46,10 +46,10 @@ to expose the three APIs and Swagger UI through one domain.
       =================================  =============================================
       Origin pool                        Kubernetes service name
       =================================  =============================================
-      ``finance-banks``              ``finance-banks.$$namespace$$``
-      ``finance-accounts``           ``finance-accounts.$$namespace$$``
-      ``finance-payments``           ``finance-payments.$$namespace$$``
-      ``finance-swagger``            ``finance-swagger.$$namespace$$``
+      ``finance-banks``                  ``finance-banks.$$namespace$$``
+      ``finance-accounts``               ``finance-accounts.$$namespace$$``
+      ``finance-payments``               ``finance-payments.$$namespace$$``
+      ``finance-swagger``                ``finance-swagger.$$namespace$$``
       =================================  =============================================
 
 
@@ -73,27 +73,27 @@ Load Balancer
    .. image:: ../../img/web-app-lb-details-2.png
       :align: center
 
-4. Select **Simple Route (2)** as the route type. **HTTP Method (3)** should be **ANY**. Switch **Path Match** to **Prefix (3)** and enter ``/banks`` in the **Prefix (4)** field. In **Origin Pools**, click **Add Item (5)** and select ``finance-banks``. Click **Apply (6)** to add the route.
+4. Select **Simple Route (1)** as the route type. **HTTP Method (2)** should be **ANY**. Switch **Path Match** to **Prefix (3)** and enter ``/api/banks`` in the **Prefix (4)** field. In **Origin Pools**, click **Add Item (5)** and select ``finance-banks``. Click **Apply (6)** to add the route.
 
    .. image:: ../../img/web-app-lb-details-3.png
       :align: center
 
-5. Repeat these steps to add the remaining routes to the HTTP load balancer (the route for ``/banks`` is already created):
+5. Repeat these steps to add the remaining routes to the HTTP load balancer (the route for ``/api/banks`` is already created). Configure the listed prefix rewrite for each API route. The Swagger route does not require a rewrite:
 
    .. table:: Required HTTP routes
       :widths: auto
 
       ====================  ============================
-      Path prefix           Origin pool
+      Path prefix           Origin pool                   
       ====================  ============================
-      ``/banks``            ``finance-banks``
-      ``/accounts``         ``finance-accounts``
-      ``/payments``         ``finance-payments``
-      ``/swagger``          ``finance-swagger``
+      ``/api/banks``        ``finance-banks``             
+      ``/api/accounts``     ``finance-accounts``          
+      ``/api/payments``     ``finance-payments``          
+      ``/swagger``          ``finance-swagger``           
       ====================  ============================
 
    .. note::            
-      Prefix matching also sends nested resources, such as ``/accounts/{accountId}/balance``, to the correct service.
+      Prefix matching also sends nested resources, such as ``/api/accounts/{accountId}/balance``, to the correct service.
 
 6. The list of routes should look like below. Click **Apply (1)** to save the routes configuration.
    .. image:: ../../img/web-app-lb-details-4.png
@@ -117,11 +117,11 @@ Load Balancer
 
    .. code-block:: console
       export BASE_URL="https://$$namespace$$.spec-security.f5se.com"
-      curl -i "${BASE_URL}/banks"
-      curl -i "${BASE_URL}/accounts"
-      curl -i "${BASE_URL}/payments"
+      curl -i "${BASE_URL}/api/banks"
+      curl -i "${BASE_URL}/api/accounts"
+      curl -i "${BASE_URL}/api/payments"
       curl -I "${BASE_URL}/swagger/"
 
    Verify for each request that the response is a normal application status: ``200``. The Swagger UI service returns a redirect to the interactive documentation.
 
-9.  Open the interactive Swagger UI at :ext_link:`https://$$namespace$$.spec-security.f5se.com/swagger/`. Expand an operation, select **Try it out**, and then select **Execute**. Swagger UI sends the request to the matching API route on the same domain.
+9.  Open the interactive Swagger UI at :ext_link:`https://$$namespace$$.spec-security.f5se.com/swagger/`. Expand an operation, select **Try it out**, and then select **Execute**. Swagger UI uses the OpenAPI server URL ``/api`` and sends the request to the matching API route on the same domain.

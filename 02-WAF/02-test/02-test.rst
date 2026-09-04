@@ -8,14 +8,14 @@ Issue a test SQL injection attack
    Arcadia Finance Open Banking API is reachable:
    
    .. code-block:: console
-      curl -i "https://$$namespace$$.spec-security.f5se.com/banks"
+      curl -i "https://$$namespace$$.spec-security.f5se.com/api/banks"
 
 2. Send a test SQL injection string in an account lookup query:
 
    .. code-block:: console
       curl -i --get \
         --data-urlencode "search=' OR 1=1--" \
-        "https://$$namespace$$.spec-security.f5se.com/accounts"
+        "https://$$namespace$$.spec-security.f5se.com/api/accounts"
 
 3. Confirm that F5 Distributed Cloud Web App and API Protection (F5 XC WAAP)
    blocks the request and returns HTTP status code ``403``.
