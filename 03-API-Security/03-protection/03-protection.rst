@@ -14,9 +14,7 @@ Configure tha API Protection
       echo 
       curl -i -X DELETE "$BASE/api/banks"
 
-   Record both baseline status codes and response bodies. The undocumented path will return an error ``400``; after protection is enabled, F5 XC must reject it before it reaches the origin. The protected response can also use status ``404``, so use the F5 XC block page and support ID—not the status code alone—to distinguish it from the origin response.
-
-
+   Record both baseline status codes and response bodies. The undocumented path will return an error ``400``; after protection is enabled, F5 XC must reject it before it reaches the origin. 
 
 2. Open Edit configoration for the arcadia finance HTTP load balancer.
 
