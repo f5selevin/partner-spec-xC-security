@@ -28,14 +28,6 @@ F5 Distributed Cloud uses the OpenAPI definition as a positive security model:
 * Limit request rates by API endpoint.
 * Record allowed, blocked, and rate-limited requests in security analytics.
 
-Lab scope
-*********
-
-In this lab, you will import the Arcadia Finance OpenAPI definition, associate
-it with the Arcadia Finance HTTP load balancer, and test enforcement. You will
-then add an endpoint policy and API rate limiting and review the resulting
-security events.
-
 **Exercise steps**
 
 
