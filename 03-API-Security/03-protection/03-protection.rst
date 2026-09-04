@@ -16,7 +16,7 @@ Configure tha API Protection
 
    Record both baseline status codes and response bodies. The undocumented path will return an error ``400``; after protection is enabled, F5 XC must reject it before it reaches the origin. 
 
-2. Open Edit configoration for the arcadia finance HTTP load balancer.
+2. Open Edit configuration for the arcadia finance HTTP load balancer.
 
 3. Click **Api Protection (1)**. Select **Enable** for **API Definition (2)**, choose just 
    created **API Definition: (3)** ``$$namespace$$/arcadia-finance-api``, and select **API Inventory** 
